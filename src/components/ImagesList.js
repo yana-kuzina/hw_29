@@ -5,13 +5,18 @@ import axios from "../helpers/axios";
 const ImagesList = () => {
   const [images, setImages] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    axios.get("/list").then((data) => {
-      setImages(data);
+    axios.get("/list", { params: { limit: 10, page } }).then((data) => {
+      setImages((prevState) => [...prevState, ...data]);
       setLoading(false);
     });
-  }, []);
+  }, [page]);
+
+  const handleShowMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <div className="images-list">
@@ -20,6 +25,12 @@ const ImagesList = () => {
           <img src={image.download_url} />
         </div>
       ))}
+
+      {isLoading ? (
+        <p>Loading</p>
+      ) : (
+        <button onClick={handleShowMore}>Show more</button>
+      )}
     </div>
   );
 };

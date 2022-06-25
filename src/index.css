@@ -22,8 +22,11 @@ code {
   width: 50%;
   padding: 15px;
   box-sizing: border-box;
+  
 }
 
 .image-box img {
   width: 100%;
+  max-height: 300px;
+  object-fit: contain;
 }
