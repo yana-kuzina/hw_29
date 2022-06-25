@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 
+import axios from "../helpers/axios";
+
 const ImagesList = () => {
   const [images, setImages] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://picsum.photos/v2/list")
-      .then((response) => response.json())
-      .then((data) => {
-        setImages(data);
-        setLoading(false);
-      });
+    axios.get("/list").then((data) => {
+      setImages(data);
+      setLoading(false);
+    });
   }, []);
 
   return (
