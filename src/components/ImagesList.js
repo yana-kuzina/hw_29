@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import Box from "@mui/material/Box";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 
 import axios from "../helpers/axios";
 
@@ -35,12 +37,22 @@ const ImagesList = () => {
   };
 
   return (
-    <div className="images-list">
-      {images.map((image) => (
-        <div className="image-box" key={image.id}>
-          <img onClick={handleDialogOpen(image)} src={image.download_url} />
-        </div>
-      ))}
+    <div>
+      <ImageList cols={2} rowHeight={300} gap={15}>
+        {images.map((image) => (
+          <ImageListItem
+            key={image.id}
+            sx={{
+              "& .MuiImageListItem-img": {
+                objectFit: "contain",
+                height: "100%",
+              },
+            }}
+          >
+            <img onClick={handleDialogOpen(image)} src={image.download_url} />
+          </ImageListItem>
+        ))}
+      </ImageList>
 
       {isLoading ? (
         <p>Loading</p>
